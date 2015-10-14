@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer.html">
+<dom-module id="myelement">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+  
+      .model img {
+        display: block;
+        float: left;
+        margin-right: 5px;
+        max-height: 100px;
+        max-width: 100px;
+      }
+    </style>
+    <h1>&lt;myelement&gt;</h1>
+    <content></content>
+    <p class="model">
+      <img src="{{model.image}}">
+      <span class="name">{{model.name}}</span>
+    </p>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'myelement',
+
+    properties: {
+
+      fancy: Boolean,
+
+      model: {
+        type: Object,
+        value: function() {
+          return {
+            myString:  'Click me.',
+            image: 'http://i2.kym-cdn.com/entries/icons/original/000/000/745/success-kid.jpg',
+          };
+        }
+      },
+
+    },
+
+
+    ready: function() {
+      this.addEventListener('click', function(e) {
+        this.set('model.image', 'https://pbs.twimg.com/profile_images/617154725046259713/0Q6wAtu0.png');
+	model.myString = 'Feels good.';
+        this.sendMyEvent();
+      });
+    },
+
+    attached: function() {
+    },
+
+    detached: function() {
+    },
+
+    sayHello: function(greeting) {
+      var response = greeting || 'Hello World!';
+      return 'myelement says, ' + response;
+    },
+
+    sendMyEvent: function() {
+      this.fire('myelement-myevent', {key1: 'Nothing to see here.'});
+    }
+
+  });
+
+</script>
